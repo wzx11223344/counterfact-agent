@@ -1,0 +1,181 @@
+# Pre-built counterfactual scenario templates.
+# Each template defines:
+#   - default_covariates: typical control variables for this domain
+#   - donor_selection_criteria: how to choose comparison units
+#   - key_mechanisms: causal channels to investigate
+#   - common_pitfalls: things to watch out for
+
+scenarios:
+
+  # ------------------------------------------------------------------
+  # Trade Policy
+  # ------------------------------------------------------------------
+  trade_tariff:
+    name: "Trade Tariff Imposition / Removal"
+    description: >
+      Analyze the counterfactual impact of a tariff change on trade flows,
+      domestic prices, employment, and welfare.
+    default_covariates:
+      - gdp_growth
+      - exchange_rate
+      - trade_openness
+      - manufacturing_share
+      - unemployment_rate
+      - fdi_inflows
+      - institutional_quality
+    donor_selection_criteria:
+      - similar_economic_structure: "Compare to economies with similar industrial composition"
+      - same_trade_bloc: "Prefer units in the same or comparable trade arrangements"
+      - pre_trend_parallelism: "Pre-treatment trade volume trends should be parallel"
+      - exclude_treatment_spillover: "Exclude units significantly affected by the same tariff"
+    key_mechanisms:
+      - direct_price_effect: "How did domestic prices change relative to the counterfactual?"
+      - substitution_effect: "Did consumers/businesses switch to alternative suppliers?"
+      - supply_chain_reorganization: "Did supply chains restructure in response?"
+      - retaliation_dynamics: "Did trading partners retaliate with their own tariffs?"
+      - terms_of_trade: "How did the tariff affect the country's terms of trade?"
+    common_pitfalls:
+      - "Anticipatory effects: firms may adjust before the tariff takes effect"
+      - "Non-tariff barriers may confound the estimated effect"
+      - "Exchange rate movements may offset or amplify tariff effects"
+      - "Global value chains complicate attribution to a single policy"
+
+  # ------------------------------------------------------------------
+  # Labor Market
+  # ------------------------------------------------------------------
+  minimum_wage:
+    name: "Minimum Wage Change"
+    description: >
+      Estimate the counterfactual employment and wage effects of a minimum
+      wage increase or decrease.
+    default_covariates:
+      - population
+      - labor_force_participation
+      - gdp_per_capita
+      - industry_mix_index
+      - education_levels
+      - unionization_rate
+      - teen_employment_share
+      - cost_of_living_index
+    donor_selection_criteria:
+      - geographic_proximity: "Adjacent regions/states often make good controls"
+      - pre_policy_wage_levels: "Similar pre-treatment minimum wage or prevailing wage"
+      - labor_market_structure: "Similar industry composition and worker demographics"
+      - no_contemporaneous_policy: "Exclude units that changed their own minimum wage concurrently"
+    key_mechanisms:
+      - employment_level_effect: "Did employment change relative to the counterfactual?"
+      - hours_adjustment: "Did employers adjust hours rather than headcount?"
+      - capital_labor_substitution: "Did firms substitute capital for more expensive labor?"
+      - spillover_to_above_minimum: "Did wages above the minimum also increase?"
+      - firm_entry_exit: "Did firm creation/destruction patterns change?"
+      - price_pass_through: "Were higher labor costs passed through to consumer prices?"
+    common_pitfalls:
+      - "Confounding with local economic conditions (boom/bust cycles)"
+      - "Spillover effects across contiguous labor markets"
+      - "Endogenous policy timing (wage increases during good times)"
+      - "Measurement: informal sector employment often unobserved"
+
+  # ------------------------------------------------------------------
+  # Environmental Policy
+  # ------------------------------------------------------------------
+  carbon_pricing:
+    name: "Carbon Pricing Impact"
+    description: >
+      Analyze the counterfactual impact of carbon pricing (tax or ETS) on
+      emissions, economic activity, and innovation.
+    default_covariates:
+      - gdp_per_capita
+      - industrial_share_of_gdp
+      - energy_intensity
+      - renewable_share
+      - population
+      - urbanization_rate
+      - r_and_d_spending
+      - trade_exposure
+    donor_selection_criteria:
+      - similar_emissions_profile: "Similar pre-treatment emissions trajectory and level"
+      - comparable_energy_mix: "Similar share of fossil fuels vs renewables"
+      - economic_development_level: "Similar GDP per capita and industrial structure"
+      - no_carbon_price: "Exclude units with their own carbon pricing mechanisms"
+    key_mechanisms:
+      - emissions_reduction: "Did emissions fall relative to the counterfactual?"
+      - fuel_switching: "Did the energy mix shift toward lower-carbon sources?"
+      - technology_innovation: "Did carbon pricing stimulate clean technology R&D?"
+      - carbon_leakage: "Did emissions-intensive production move to unpriced jurisdictions?"
+      - competitiveness_effects: "Did carbon-intensive industries lose market share?"
+      - revenue_recycling: "How did the use of carbon revenues affect outcomes?"
+    common_pitfalls:
+      - "Overlapping policies (renewable mandates, efficiency standards) confound attribution"
+      - "Emissions data quality varies significantly across jurisdictions"
+      - "Carbon leakage is difficult to measure directly"
+      - "Long time horizons: full effects may take decades to materialize"
+
+  # ------------------------------------------------------------------
+  # Education
+  # ------------------------------------------------------------------
+  school_funding_reform:
+    name: "School Funding Reform"
+    description: >
+      Estimate the counterfactual impact of changes in school funding formulas
+      on student outcomes, inequality, and resource allocation.
+    default_covariates:
+      - prior_test_scores
+      - poverty_rate
+      - english_learner_share
+      - special_education_share
+      - pupil_teacher_ratio
+      - district_enrollment
+      - property_tax_base
+      - rural_urban_indicator
+    donor_selection_criteria:
+      - pre_reform_funding_levels: "Match on pre-treatment per-pupil spending"
+      - demographic_similarity: "Similar student demographics and poverty rates"
+      - same_state_program: "Within-state comparisons control for state-level policies"
+      - no_concurrent_reform: "Exclude districts that implemented other major reforms"
+    key_mechanisms:
+      - student_achievement: "Did test scores change relative to the counterfactual?"
+      - resource_allocation: "How did schools use additional (or reduced) resources?"
+      - teacher_labor_market: "Did teacher quality, retention, or salaries change?"
+      - inequality_reduction: "Did gaps between advantaged and disadvantaged students narrow?"
+      - housing_market_spillovers: "Did property values or residential sorting change?"
+      - long_term_outcomes: "Effects on graduation rates, college attendance, earnings?"
+    common_pitfalls:
+      - "Test score measurement: changes in testing regimes confound comparisons"
+      - "Student mobility: migration between districts biases estimates"
+      - "Concurrent reforms: curriculum changes, accountability systems, etc."
+      - "Long lags: educational inputs may take years to manifest in outcomes"
+
+  # ------------------------------------------------------------------
+  # Health
+  # ------------------------------------------------------------------
+  public_health_intervention:
+    name: "Public Health Intervention"
+    description: >
+      Analyze the counterfactual impact of a public health intervention
+      (e.g., vaccination program, smoking ban, sugar tax) on health outcomes.
+    default_covariates:
+      - baseline_mortality
+      - baseline_morbidity
+      - health_expenditure_per_capita
+      - population_density
+      - age_structure
+      - income_per_capita
+      - healthcare_access_index
+      - health_behavior_indicators
+    donor_selection_criteria:
+      - similar_pre_trends: "Parallel pre-treatment trends in the health outcome"
+      - demographic_match: "Similar population demographics and health profile"
+      - healthcare_system: "Comparable healthcare infrastructure"
+      - no_simultaneous_intervention: "Exclude units with concurrent health programs"
+    key_mechanisms:
+      - direct_health_effect: "Did the targeted health outcome improve?"
+      - behavioral_response: "Did individuals change health-related behaviors?"
+      - healthcare_utilization: "Did hospitalizations or doctor visits change?"
+      - herd_immunity_spillovers: "Were there indirect protective effects?"
+      - health_inequality: "Did the intervention reduce or widen health disparities?"
+      - economic_costs: "What were the healthcare cost savings or productivity gains?"
+    common_pitfalls:
+      - "Selection bias: who receives the intervention is often non-random"
+      - "Underreporting: health outcomes in administrative data may be incomplete"
+      - "Concurrent trends: other health trends may confound the estimate"
+      - "External validity: effects may not generalize to other populations"
